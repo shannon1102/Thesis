@@ -1,0 +1,220 @@
+paths:
+  /api/v1/orders:
+    post:
+      summary: Create an order
+      tags:
+        - Orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerAddress:
+                  type: string
+                comment:
+                  type: string
+                customerEmail:
+                  type: string
+                customerName:
+                  type: string
+                customerPhone:
+                  type: string
+                paymentMethod:
+                  type: string
+                deliveryMethod:
+                  type: string
+                shipFee:
+                  type: number
+                orderItems:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      variantId:
+                        type: number
+                      quantity:
+                        type: number
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/admin/orders:
+    get:
+      summary: Admin get orders
+      tags:
+        - Orders
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: number
+          description: limit order
+        - in: query
+          name: offset
+          schema:
+            type: number
+          description: skip number
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: search  people
+        - in: query
+          name: userId
+          schema:
+            type: number
+          description: user id
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: search by status
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /api/v1/admin/orders/{id}:
+    put:
+      summary: Admin update status order (Switch NEW INCOMING, DONE,CANCEL)
+      tags:
+        - Orders
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: order id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  
+  /api/v1/orders/{id}:
+    get:
+      summary: get order by id
+      tags:
+        - Orders
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: order id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/user/orders:
+    get:
+      summary: get list order
+      tags:
+        - Orders
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: number
+          description: limit order
+        - in: query
+          name: offset
+          schema:
+            type: number
+          description: skip number
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: search order by email
+        - in: query
+          name: phone
+          schema:
+            type: string
+          description: search order by phone
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: search order by status
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/user/orders/{id}:
+    put:
+      summary: User update status order(switch status from (NEW or INCOMING) -> (DONE or CANCEL))
+      tags:
+        - Orders
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: order id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+
+

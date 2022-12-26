@@ -1,0 +1,196 @@
+paths:
+  /balo/post/get_list_posts:
+    post:
+      summary: get  posts
+      tags:
+        - Post
+      parameters:
+        - in: query
+          name: index
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: count
+          schema:
+            type: integer
+          description: The number of items to collect the result set
+        - in: query
+          name: user_id
+          schema:
+            type: string
+          description: user id
+
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /balo/post/get_post:
+    post:
+      summary: Update an post
+      tags:
+        - Post
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: post id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /balo/post/add_post:
+    post:
+      summary: add new post
+      tags:
+        - Post
+      parameters:
+        - in: query
+          name: described
+          schema:
+            type: string
+          description: Description
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: status
+      requestBody:
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: array
+                    items: 
+                      type: file 
+                  video:
+                    type: file
+       
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /balo/post/edit_post:
+    post:
+      summary: Edit  post
+      tags:
+        - Post
+      parameters:
+        - in: query
+          name: described
+          schema:
+            type: string
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: The number of items to collect the result set
+      requestBody:
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: array 
+                    items:
+                      type: file
+                  video:
+                    type: file
+       
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object  
+  /balo/post/delete_post:
+    post:
+      summary: Delte post
+      tags:
+        - Post
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: post id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /balo/post/report_post:
+    post:
+      summary: Report post
+      tags:
+        - Post
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: post id
+        - in: query
+          name: subject
+          schema:
+            type: string
+          description: post subject
+        - in: query
+          name: details
+          schema:
+            type: string
+          description: post details
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object

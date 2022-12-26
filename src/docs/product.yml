@@ -1,0 +1,229 @@
+paths:
+  /api/v1/admin/products:
+    post:
+      summary: create product
+      tags:
+        - Product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                price:
+                  type: number
+                comparePrice:
+                  type: number
+                url:
+                  type: string
+                vendorId:
+                  type: number
+                availableNumber:
+                  type: number
+                featureImageId:
+                  type: number
+                bestSelling:
+                  type: boolean
+                media:
+                  type: array
+                  items:
+                    type: number
+                collections:
+                  type: array
+                  items:
+                    type: number
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      values:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/admin/products/{id}:
+    put:
+      summary: update product
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          description: product id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                price:
+                  type: number
+                comparePrice:
+                  type: number
+                url:
+                  type: string
+                vendorId:
+                  type: number
+                featureImageId:
+                  type: number
+                bestSelling:
+                  type: boolean
+                media:
+                  type: array
+                  items:
+                    type: number
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      values:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    delete:
+      summary: delete product
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          description: product id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  /api/v1/products:
+    get:
+      summary: get products
+      tags:
+        - Product
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: number
+          description: limit product
+        - in: query
+          name: offset
+          schema:
+            type: number
+          description: skip number
+        - in: query
+          name: title
+          schema:
+            type: string
+          description: product title
+        - in: query
+          name: collectionId
+          schema:
+            type: string
+          description: collectionId
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: product status
+        - in: query
+          name: maxPrice
+          schema:
+            type: number
+          description: product maxPrice
+        - in: query
+          name: minPrice
+          schema:
+            type: number
+          description: product minPrice
+        - in: query
+          name: sortPrice
+          schema:
+            type: string
+            enum: [ASC, DESC]
+          description: product sortPrice
+        - in: query
+          name: bestSelling
+          schema:
+            type: boolean
+          description: product bestSelling
+        - in: query
+          name: createdAt
+          schema:
+            type: string
+            enum: [ASC, DESC]
+          description: product createdAt
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /api/v1/products/{id}:
+    get:
+      summary: get product
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          description: product id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object

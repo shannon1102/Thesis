@@ -1,0 +1,117 @@
+paths:
+  /api/v1/cart:
+    post:
+      summary: Create an cart
+      tags:
+        - Cart
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+    get:
+      summary: get my cart
+      tags:
+        - Cart
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/cart/{id}:
+    get:
+      summary: get cart by id
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: cart id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/user/{userId}/cart:
+    get:
+      summary: get cart by userId
+      tags:
+        - Cart
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          description: userId
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/user/cart/checkout:
+    get:
+      summary: get infor checkout cart finalfee
+      tags:
+        - Cart
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/user/cart/check-available-items:
+    get:
+      summary: check available number of items in  cart
+      tags:
+        - Cart
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+
+    
+
