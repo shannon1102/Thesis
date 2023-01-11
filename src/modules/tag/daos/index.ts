@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { Tag } from "../../../entities/tag";
+import { Tag } from "../../../entities/product/category";
 import { TagType } from "../../../types/type.tag";
 
 const createTag = async (tagDTO: TagType) => {

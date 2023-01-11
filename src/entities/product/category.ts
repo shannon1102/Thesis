@@ -1,10 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
-import { User } from "./user";
 import "reflect-metadata";
-import { ArticleTag } from "./articleTag";
 
 @Entity()
-export class Tag {
+export class Category {
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -20,11 +18,4 @@ export class Tag {
   @Column()
   isDeleted?: boolean;
 
-  @Column()
-  userId?: number;
-
-  @ManyToOne(() => User, (user) => user.tags) @JoinColumn({ name: "userId" }) user?: User;
-
-  @OneToMany(() => ArticleTag, (articleTag) => articleTag.tag)
-  articleTags?: ArticleTag[];
 }

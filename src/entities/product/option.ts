@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne, OneToMany } from "typeorm";
 import "reflect-metadata";
 import { Product } from "./product";
-import { OptionValue } from "./optionValue";
+import { OptionValue } from "./optionMetaData";
 
 @Entity()
 export class Option {

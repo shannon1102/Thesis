@@ -1,24 +1,16 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
-import { User } from "./user";
 import "reflect-metadata";
-import { ArticleTag } from "./articleTag";
+import { User } from "../user";
+import { Post } from "./post";
+
 
 @Entity()
-export class Article {
+export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  title: string;
-
-  @Column()
-  description: string;
-
-  @Column()
-  avatar: string;
-
-  @Column()
-  content: string;
+  comment: string;
 
   @Column()
   createdAt: Date;
@@ -32,10 +24,11 @@ export class Article {
   @Column()
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.articles)
+  @ManyToOne(() => User, (user) => user.comments)
   @JoinColumn({ name: "userId" })
   user: User;
-
-  @OneToMany(() => ArticleTag, (articleTag) => articleTag.article)
-  articleTags: ArticleTag[];
+  
+  @ManyToOne(() => Post, (post) => post.comments)
+  @JoinColumn({ name: "postId" })
+  post?: Post;
 }

@@ -1,7 +1,7 @@
-import { OrderItem } from "../../entities/orderItem";
+import { OrderItem } from "../../entities/deposit/orderItem";
 import { getRepository } from "typeorm";
 import { Pagination } from "../../types/type.pagination";
-import { Order } from "../../entities/order";
+import { Order } from "../../entities/deposit/order";
 import variantServices from "../variant/services";
 
 const createOrderItem = async (orderItemData: OrderItem): Promise<OrderItem> => {

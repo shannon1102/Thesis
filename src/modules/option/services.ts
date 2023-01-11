@@ -1,4 +1,4 @@
-import { Option } from "../../entities/option";
+import { Option } from "../../entities/product/option";
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";
 import optionDaos from "./daos";

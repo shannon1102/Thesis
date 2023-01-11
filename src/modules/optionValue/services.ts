@@ -1,4 +1,4 @@
-import { OptionValue } from "../../entities/optionValue";
+import { OptionValue } from "../../entities/product/optionMetaData";
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";
 import optionValueDaos from "./daos";

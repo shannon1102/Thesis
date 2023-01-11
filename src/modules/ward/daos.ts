@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { Ward } from "../../entities/ward";
+import { Ward } from "../../entities/address/ward";
 
 const wardDaos = {
   async getList(districtId: string) {

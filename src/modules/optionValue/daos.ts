@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { OptionValue } from "../../entities/optionValue";
+import { OptionValue } from "../../entities/product/optionMetaData";
 
 const createOptionValue = async (data: OptionValue): Promise<OptionValue> => {
   const optionValueRepo = getRepository(OptionValue);

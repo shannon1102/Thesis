@@ -3,7 +3,7 @@ import faker from "faker";
 import mediaDaos from "../modules/media/daos";
 import productServices from "../modules/product/services";
 import { Media } from "../entities/media";
-import { Option } from "../entities/option";
+import { Option } from "../entities/product/option";
 import vendorServices from "../modules/vendor/services";
 
 const productSeeding = async () => {

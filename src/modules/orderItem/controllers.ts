@@ -1,4 +1,4 @@
-import { OrderItem } from "../../entities/orderItem";
+import { OrderItem } from "../../entities/deposit/orderItem";
 import { Request, Response } from "express";
 import orderItemServices from "./services";
 import variantServices from "../variant/services";

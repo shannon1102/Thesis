@@ -1,4 +1,4 @@
-import { OptionValueVariant } from "../../entities/optionValueVariant";
+import { OptionValueVariant } from "../../entities/optionPost";
 import { VariantResponse } from "../../types/type.variant";
 import { Variant } from "../../entities/variant";
 

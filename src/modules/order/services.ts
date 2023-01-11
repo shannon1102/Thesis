@@ -1,5 +1,5 @@
 import { Pagination } from "../../types/type.pagination";
-import { Order } from "../../entities/order";
+import { Order } from "../../entities/deposit/order";
 import orderDaos from "./daos";
 import configs from "../../configs";
 import CustomError from "../../errors/customError";

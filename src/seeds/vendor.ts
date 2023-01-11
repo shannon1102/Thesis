@@ -1,14 +1,14 @@
-import faker from "faker";
-import { Vendor } from "../entities/vendor";
-import vendorServices from "../modules/vendor/services";
+// import faker from "faker";
 
-const vendorSeeding = async () => {
-  for (let i = 0; i < 15; i++) {
-    const vendor: Vendor = {
-      name: faker.commerce.productAdjective(),
-    };
-    await vendorServices.createVendor(vendor);
-  }
-};
+// import vendorServices from "../modules/vendor/services";
 
-export default vendorSeeding;
+// const vendorSeeding = async () => {
+//   for (let i = 0; i < 15; i++) {
+//     const vendor: Vendor = {
+//       name: faker.commerce.productAdjective(),
+//     };
+//     await vendorServices.createVendor(vendor);
+//   }
+// };
+
+// export default vendorSeeding;

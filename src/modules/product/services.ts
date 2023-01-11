@@ -1,5 +1,5 @@
 import { MediaMap } from "../../entities/mediaMap";
-import { Product } from "../../entities/product";
+import { Product } from "../../entities/product/product";
 import { convertToSlug } from "../../utils/convertToSlug";
 import productDaos from "./daos";
 import configs from "../../configs";
@@ -10,12 +10,12 @@ import mediaMapServices from "../mediaMap/services";
 import variantServices from "../variant/services";
 import { Variant } from "../../entities/variant";
 import optionServices from "../option/services";
-import { Option } from "../../entities/option";
+import { Option } from "../../entities/product/option";
 import optionValueServices from "../optionValue/services";
 import optionValueVariantServices from "../optionValueVariant/services";
 import { ProductResponse, ProductSearchParams } from "../../types/type.product";
 import productHelpers from "./helpers";
-import { OptionValue } from "../../entities/optionValue";
+import { OptionValue } from "../../entities/product/optionMetaData";
 import productCollectionServices from "../productCollection/services";
 import optionValueVariantDaos from "../optionValueVariant/daos";
 

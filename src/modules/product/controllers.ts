@@ -1,10 +1,10 @@
 import { ProductSearchParams } from "./../../types/type.product";
-import { Product } from "../../entities/product";
+import { Product } from "../../entities/product/product";
 import { Request, Response } from "express";
 import productServices from "./services";
 import CustomError from "../../errors/customError";
 import codes from "../../errors/codes";
-import { Option } from "../../entities/option";
+import { Option } from "../../entities/product/option";
 import { Media } from "../../entities/media";
 
 const createProduct = async (req: Request, res: Response) => {

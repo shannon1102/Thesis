@@ -1,6 +1,6 @@
 import { getRepository, ReturningStatementNotSupportedError } from "typeorm";
 import { Pagination } from "../../types/type.pagination";
-import { Order } from "../../entities/order";
+import { Order } from "../../entities/deposit/order";
 import orderItemServices from "../orderItem/services";
 import variantServices from "../variant/services";
 import CustomError from "../../errors/customError";

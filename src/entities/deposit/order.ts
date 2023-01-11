@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne, OneToMany } from "typeorm";
 import "reflect-metadata";
 
-import { User } from "./user";
+import { User } from "../user";
 import { OrderItem } from "./orderItem";
 
 @Entity()
@@ -16,10 +16,8 @@ export class Order {
   userId?: number;
 
   @Column()
-  totalPrice?: number;
+  amount?: number;
 
-  @Column()
-  totalComparePrice?: number;
   @Column()
   customerName: string;
   @Column()
@@ -32,10 +30,7 @@ export class Order {
   paymentMethod: string;
   @Column()
   status: string;
-  @Column()
-  deliveryMethod: string;
-  @Column()
-  shipFee: number;
+
   @Column()
   comment: string
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })

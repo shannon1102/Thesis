@@ -1,10 +1,10 @@
 import { Collection } from "../../entities/collection";
 import { Media } from "../../entities/media";
 import { MediaMap } from "../../entities/mediaMap";
-import { Option } from "../../entities/option";
-import { OptionValue } from "../../entities/optionValue";
-import { OptionValueVariant } from "../../entities/optionValueVariant";
-import { Product } from "../../entities/product";
+import { Option } from "../../entities/product/option";
+import { OptionValue } from "../../entities/product/optionMetaData";
+import { OptionValueVariant } from "../../entities/optionPost";
+import { Product } from "../../entities/product/product";
 import { Variant } from "../../entities/variant";
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";

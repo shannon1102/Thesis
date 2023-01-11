@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import "reflect-metadata";
-import { Product } from "./product";
+import { Product } from "./product/product";
 import { Media } from "./media";
 
 @Entity()

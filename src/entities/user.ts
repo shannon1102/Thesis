@@ -1,8 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Article } from "./article";
-import { Order } from "./order";
-import { Tag } from "./tag";
+import { Order } from "./deposit/order";
 import { UserMeta } from "./userMeta";
+import { Post } from "./post/post";
+import { Product } from "./product/product";
+import { Comment } from "./post/comment";
+import { Friend } from "./friend";
 
 @Entity()
 export class User {
@@ -30,11 +32,10 @@ export class User {
   @Column({ nullable: true })
   deviceId?: string | null;
 
-  @OneToMany(() => Article, (article) => article.user) articles?: Article[];
-
-  @OneToMany(() => Tag, (tag) => tag.user) tags?: Tag[];
-
+  @OneToMany(() => Post, (post) => post.user) posts?: Post[];
+  @OneToMany(() => Product, (product) => product.user) products?: Product[];
+  @OneToMany(() => Comment, (comment) => comment.user) comments?: Comment[];
   @OneToMany(() => Order, (order) => order.user) orders?: Order[];
-
   @OneToMany(() => UserMeta, (userMeta) => userMeta.user) userMetas?: UserMeta[];
+  @OneToMany(() => Friend, (friend) => friend.user) friends?: UserMeta[];
 }

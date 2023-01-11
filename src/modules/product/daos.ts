@@ -1,4 +1,4 @@
-import { Product } from "../../entities/product";
+import { Product } from "../../entities/product/product";
 import { getRepository } from "typeorm";
 import { ProductSearchParams } from "../../types/type.product";
 
