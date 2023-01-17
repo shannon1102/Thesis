@@ -14,7 +14,7 @@ export class Friend {
   @Column()
   updatedAt: Date;
 
-  @Column()
+  @Column({default: false})
   isDeleted: boolean;
 
   @Column()

@@ -3,7 +3,6 @@ import "reflect-metadata";
 import { User } from "../user";
 import { Post } from "./post";
 
-
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
@@ -18,7 +17,7 @@ export class Comment {
   @Column()
   updatedAt: Date;
 
-  @Column()
+  @Column({default: false})
   isDeleted: boolean;
 
   @Column()

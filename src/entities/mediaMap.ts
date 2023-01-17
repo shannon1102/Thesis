@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne
 import "reflect-metadata";
 import { Product } from "./product/product";
 import { Media } from "./media";
+import { Post } from "./post/post";
 
 @Entity()
 export class MediaMap {
@@ -27,6 +28,10 @@ export class MediaMap {
   @JoinColumn({ name: "targetId", referencedColumnName: "id" })
   product?: Product;
 
+  @ManyToOne(() => Post, (post) => post.mediaMaps)
+  @JoinColumn({ name: "targetId", referencedColumnName: "id" })
+  post?: Post;
+  
   @ManyToOne(() => Media, (media) => media.mediaMaps)
   @JoinColumn({ name: "mediaId", referencedColumnName: "id" })
   media?: Media;

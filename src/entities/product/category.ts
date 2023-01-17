@@ -15,7 +15,7 @@ export class Category {
   @Column()
   updatedAt?: Date;
 
-  @Column()
+  @Column({default: false})
   isDeleted?: boolean;
 
 }

@@ -1,6 +1,6 @@
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";
-import { ArticleCreateParamsType, ArticleUpdateParamsType } from "../../types/type.article";
+import { ArticleCreateParamsType, ArticleUpdateParamsType } from "../../types/type.post";
 import { Pagination } from "../../types/type.pagination";
 import articleTagServices from "../articleTag/services";
 import articleDao from "./daos";

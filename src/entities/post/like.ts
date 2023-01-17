@@ -5,7 +5,7 @@ import { Post } from "./post";
 
 
 @Entity()
-export class Article {
+export class Like {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -23,12 +23,4 @@ export class Article {
 
   @Column()
   postId: number;
-  
-//   @ManyToOne(() => User, (user) => user.articles)
-//   @JoinColumn({ name: "userId" })
-//   user: User;
-  
-//   @ManyToOne(() => Post, (post) => post.articles)
-//   @JoinColumn({ name: "userId" })
-//   post: Post;
 }

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import codes from "../errors/codes";
 import CustomError from "../errors/customError";
 
-export const validateCreateArticles = (role: String) => {
+export const validateCreatePosts = (role: String) => {
   return (req: Request, res: Response, next: NextFunction) => {
     if (req.user.role !== role) {
       throw new CustomError(codes.FORBIDDEN);

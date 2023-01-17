@@ -1,7 +1,7 @@
-import { validateCreateArticles } from "./../validations/articles";
+import { validateCreateArticles } from "../validations/post";
 import express from "express";
 import asyncMiddleware from "../middlewares/async";
-import articleController from "../modules/article/controllers";
+import articleController from "../modules/post/controllers";
 import ROLES from "../constants/roles";
 const router = express.Router();
 
