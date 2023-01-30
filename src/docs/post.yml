@@ -1,6 +1,6 @@
 paths:
-  /balo/post/get_list_posts:
-    post:
+  /api/v1/get_list_posts:
+    get:
       summary: get  posts
       tags:
         - Post
@@ -33,7 +33,7 @@ paths:
                     type: string
                   result:
                     type: object
-  /balo/post/get_post:
+  /api/v1/get_post:
     post:
       summary: Update an post
       tags:
@@ -56,22 +56,17 @@ paths:
                     type: string
                   result:
                     type: object
-  /balo/post/add_post:
+  /api/v1/add_post:
     post:
       summary: add new post
       tags:
         - Post
       parameters:
         - in: query
-          name: described
+          name: description
           schema:
             type: string
           description: Description
-        - in: query
-          name: status
-          schema:
-            type: string
-          description: status
       requestBody:
           content:
             multipart/form-data:
@@ -97,7 +92,7 @@ paths:
                     type: string
                   result:
                     type: object
-  /balo/post/edit_post:
+  /api/v1/edit_post:
     post:
       summary: Edit  post
       tags:
@@ -138,7 +133,7 @@ paths:
                     type: string
                   result:
                     type: object  
-  /balo/post/delete_post:
+  /api/v1/delete_post:
     post:
       summary: Delte post
       tags:
@@ -161,7 +156,7 @@ paths:
                     type: string
                   result:
                     type: object
-  /balo/post/report_post:
+  /api/v1/report_post:
     post:
       summary: Report post
       tags:

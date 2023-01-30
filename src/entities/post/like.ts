@@ -16,11 +16,16 @@ export class Like {
   updatedAt: Date;
 
   @Column()
-  isDeleted: boolean;
-
-  @Column()
   userId: number;
 
   @Column()
   postId: number;
+
+  @ManyToOne(() => User, (user) => user.comments)
+  @JoinColumn({ name: "userId" })
+  user: User;
+  
+  @ManyToOne(() => Post, (post) => post.comments)
+  @JoinColumn({ name: "postId" })
+  post?: Post;
 }

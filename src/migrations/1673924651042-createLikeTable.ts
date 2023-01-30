@@ -41,7 +41,7 @@ export class createLikeTable1673924651042 implements MigrationInterface {
             referencedTableName: "user",
             onDelete: "CASCADE",
           });
-          await queryRunner.createForeignKey("user", foreignKeyUser);
+          await queryRunner.createForeignKey("like", foreignKeyUser);
       
           const foreignKeyPost = new TableForeignKey({
               columnNames: ["postId"],
@@ -49,7 +49,7 @@ export class createLikeTable1673924651042 implements MigrationInterface {
               referencedTableName: "post",
               onDelete: "CASCADE",
             });
-            await queryRunner.createForeignKey("post", foreignKeyPost);
+            await queryRunner.createForeignKey("like", foreignKeyPost);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

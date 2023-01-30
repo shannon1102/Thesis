@@ -2,6 +2,7 @@ import { Media } from "../entities/media";
 import { Like } from "../entities/post/like";
 
 export type PostCreateParamsType = {
+  id?: number;
   description?: string;
   userId: number;
   status?: string;

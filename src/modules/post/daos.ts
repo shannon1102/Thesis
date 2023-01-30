@@ -3,7 +3,7 @@ import configs from "../../configs";
 import { User } from "../../entities/user";
 import { Pagination } from "../../types/type.pagination";
 import { Post } from "../../entities/post/post";
-import { PostCreateParamsType } from "../../types/type.post";
+import { PostCreateParamsType, PostUpdateParamsType } from "../../types/type.post";
 
 const createPost = async (data: Post) => {
   const postRepository = getRepository(Post);
@@ -21,9 +21,9 @@ const getPostById = async (id: number) => {
   const postRepository = getRepository(Post);
   const post = await postRepository
     .createQueryBuilder("p")
-    .leftJoinAndSelect("p.PostTags", "at", "at.isDeleted = false")
-    .leftJoinAndSelect("at.tag", "t", "t.isDeleted = false")
-    .where(`a.id = ${id} and a.isDeleted = false`)
+    .leftJoinAndSelect("p.likes", "like", "like.postId = p.id")
+    .leftJoinAndSelect("p.comment", "cmt", "cmt.isDeleted = false and cmt.postId = p.id")
+    .where(`p.id = ${id} and a.isDeleted = false`)
     .getOne();
   return post;
 };
@@ -36,8 +36,8 @@ const getPostsByUserId = async (condition: { userId: number; exceptPostId?: numb
   }
   const posts = await postRepository
     .createQueryBuilder("a")
-    .leftJoinAndSelect("a.PostTags", "at")
-    .leftJoinAndSelect("at.tag", "t", "t.isDeleted = false")
+    .leftJoinAndSelect("a.likes", "like", "like.postId = a.id")
+    .leftJoinAndSelect("a.comment", "cmt", "cmt.isDeleted = false and cmt.postId = a.id")
     .where(whereConditionGetPost)
     .orderBy("a.createdAt", "DESC")
     .skip(condition.offset || 0)
@@ -50,37 +50,15 @@ const getPostsByUserId = async (condition: { userId: number; exceptPostId?: numb
   };
 };
 
-const updatePost = async (PostId: number, data: postUpdateParamsType, tags: { id: number; postTagId?: number }[]) => {
+const updatePost = async (postId: number, data: PostUpdateParamsType) => {
   const postRepository = getRepository(Post);
   const postData = {
     ...data,
     updatedAt: new Date(),
   };
-  await postRepository.update(PostId, postData);
-  tags?.length &&
-    (await tags.forEach(async (tag) => {
-      if (!tag.PostTagId) {
-        await postTagDaos.createPostTag({
-          postId: postId,
-          tagId: tag.id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          isDeleted: false,
-        });
-      }
-    }));
-  const post: Post = await postRepository.findOne(PostId);
+  await postRepository.update(postId, postData);
+  const post: Post = await postRepository.findOne(postId);
   return post;
-};
-
-const getPostsByTagId = async (tagId: number, userId: number) => {
-  const postRepository = getRepository(Post);
-  const posts = await postRepository
-    .createQueryBuilder("a")
-    .innerJoin("a.PostTags", "at", `at.tagId = ${tagId} and at.isDeleted = false`)
-    .where(`a.userId = ${userId} and a.isDeleted = false`)
-    .getMany();
-  return posts;
 };
 
 const getPostsByUserIdFilterByTag = async (condition: { userId: number; limit?: number }) => {
@@ -97,10 +75,10 @@ const getAllPosts = async (params: Pagination) => {
   const postRepository = getRepository(Post);
   const posts = await postRepository
     .createQueryBuilder("a")
-    .leftJoinAndSelect("a.PostTags", "at")
-    .leftJoinAndSelect("at.tag", "t", "t.isDeleted = false")
+    .leftJoinAndSelect("a.likes", "like", "like.postId = a.id")
+    .leftJoinAndSelect("a.comments", "cmt", "cmt.isDeleted = false and cmt.postId = a.id")
     .leftJoinAndSelect("a.user", "u")
-    .select(["a", "at", "t", "u.id", "u.name", "u.avatar"])
+    // .select(["a", "at", "t", "u.id", "u.name", "u.avatar"])
     .where("a.isDeleted = false")
     .orderBy("a.createdAt", "DESC")
     .skip(params.offset)
@@ -118,7 +96,6 @@ export default {
   getPostById,
   getPostsByUserId,
   updatePost,
-  getPostsByTagId,
   getPostsByUserIdFilterByTag,
   getAllPosts,
 };

@@ -18,7 +18,7 @@ export class createTableOrderItem1636468887437 implements MigrationInterface {
             type: "int",
           },
           {
-            name: "variantId",
+            name: "productId",
             type: "int",
           },
           {
@@ -51,9 +51,9 @@ export class createTableOrderItem1636468887437 implements MigrationInterface {
     await queryRunner.createForeignKey(
       "order_item",
       new TableForeignKey({
-        columnNames: ["variantId"],
+        columnNames: ["productId"],
         referencedColumnNames: ["id"],
-        referencedTableName: "variant",
+        referencedTableName: "product",
         onDelete: "CASCADE",
       }),
     );

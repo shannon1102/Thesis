@@ -48,7 +48,7 @@ export class createCommentTable1673924218390 implements MigrationInterface {
       referencedTableName: "user",
       onDelete: "CASCADE",
     });
-    await queryRunner.createForeignKey("user", foreignKeyUser);
+    await queryRunner.createForeignKey("comment", foreignKeyUser);
 
     const foreignKeyPost = new TableForeignKey({
         columnNames: ["postId"],
@@ -56,7 +56,7 @@ export class createCommentTable1673924218390 implements MigrationInterface {
         referencedTableName: "post",
         onDelete: "CASCADE",
       });
-      await queryRunner.createForeignKey("post", foreignKeyPost);
+      await queryRunner.createForeignKey("comment", foreignKeyPost);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

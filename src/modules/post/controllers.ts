@@ -6,9 +6,9 @@ import CustomError from "../../errors/customError";
 import postService from "./services";
 
 const createPost = async (req: Request, res: Response) => {
-  const { title, description, content, avatar, tags } = req.body;
+  const { description } = req.body;
   const currentUserId = req.user.id;
-  const post = await postService.createPost({ title, description, content, avatar, userId: currentUserId }, tags);
+  const post = await postService.createPost({ description, userId: currentUserId });
   delete post.userId;
   res.status(200).json({
     status: "success",
@@ -28,7 +28,7 @@ const getPosts = async (req: Request, res: Response) => {
   });
   res.status(200).json({
     status: "success",
-    result: data.Posts,
+    result: data.posts,
     total: data.total,
   });
 };
@@ -55,8 +55,8 @@ const updatePostById = async (req: Request, res: Response) => {
   const tagIds = req.body.tagIds;
   const dataUpdate = req.body;
   delete dataUpdate.tagIds;
-  const post = await postService.updatePostById(id, dataUpdate, tagIds);
-  if (Number(currentUserId) !== Number(Post.userId)) {
+  const post = await postService.updatePostById(id, dataUpdate);
+  if (Number(currentUserId) !== Number(post.userId)) {
     throw new CustomError(codes.UNAUTHORIZED);
   }
   res.status(200).json({
@@ -73,7 +73,7 @@ const getAllPosts = async (req: Request, res: Response) => {
   });
   res.status(200).json({
     status: "success",
-    result: data.Posts,
+    result: data.posts,
     total: data.total,
   });
 };

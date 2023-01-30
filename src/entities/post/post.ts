@@ -14,14 +14,14 @@ export class Post {
   id?: number;
   @Column({ nullable: true })
   description?: string;
-  @Column()
-  status?: string;
+  // @Column()
+  // status?: string;
 
   @Column()
   isDeleted?: boolean;
 
-  @Column()
-  url?: string;
+  // @Column()
+  // url?: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt?: Date;
@@ -29,15 +29,18 @@ export class Post {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP" })
   updatedAt?: Date;
 
-  @ManyToOne(() => User, (user) => user.posts)
-  userId: User
+  @Column()
+  userId: number;
 
 
   @OneToMany(() => MediaMap, (mediaMap) => mediaMap.product)
   mediaMaps?: MediaMap[];
   
-  @OneToMany(() => Comment, (comment) => comment.post) comments?: Comment[];
-  // @OneToMany(() => Like, (like) => like.post) like?: Like[];
-  @ManyToOne(() => User, (user) => user.products)
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments?: Comment[];
+  @OneToMany(() => Like, (like) => like.post) 
+  likes?: Like[];
+  @ManyToOne(() => User, (user) => user.posts)
+  @JoinColumn({ name: "userId" })
   user?: User;
 }

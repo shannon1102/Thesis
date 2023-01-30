@@ -1,52 +1,46 @@
+import { User } from "../../entities/user";
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";
-import { ArticleCreateParamsType, ArticleUpdateParamsType } from "../../types/type.post";
 import { Pagination } from "../../types/type.pagination";
-import articleTagServices from "../articleTag/services";
-import articleDao from "./daos";
+import { PostCreateParamsType, PostUpdateParamsType } from "../../types/type.post";
+import postDao from "./daos";
 
-const createArticle = async (article: ArticleCreateParamsType, tags: { id: number }[] = []) => {
-  const newArticle = await articleDao.createArticle(article);
-  await tags.forEach(async (tag) => {
-    await articleTagServices.create({
-      articleId: newArticle.id,
-      tagId: tag.id,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isDeleted: false,
-    });
-  });
-  const articleRes = await articleDao.getArticleById(newArticle.id);
-  return articleRes;
+const createPost = async (post: PostCreateParamsType, tags: { id: number }[] = []) => {
+  const author = new User();
+  // post.users 
+  const newPost = await postDao.createPost(post);
+
+  const PostRes = await postDao.getPostById(newPost.id);
+  return PostRes;
 };
 
-const getArticlesByUserId = async (userId: number, pagination: Pagination) => {
-  const result = await articleDao.getArticlesByUserId({ userId, ...pagination });
+const getPostsByUserId = async (userId: number, pagination: Pagination) => {
+  const result = await postDao.getPostsByUserId({ userId, ...pagination });
   return result;
 };
 
-const getArticleById = async (id: number) => {
-  const article = await articleDao.getArticleById(id);
-  if (!article) {
-    throw new CustomError(codes.NOT_FOUND, "Article not found!");
+const getPostById = async (id: number) => {
+  const Post = await postDao.getPostById(id);
+  if (!Post) {
+    throw new CustomError(codes.NOT_FOUND, "Post not found!");
   }
-  const relativeArticles = await articleDao.getArticlesByUserId({
-    userId: article.userId,
-    exceptArticleId: article.id,
+  const relativePosts = await postDao.getPostsByUserId({
+    userId: Post.userId,
+    exceptPostId: Post.id,
     limit: 8,
   });
   return {
-    article,
-    relativeArticles,
+    Post,
+    relativePosts,
   };
 };
 
-const updateArticleById = async (articleId: number, articleData: ArticleUpdateParamsType, tags: { id: number; articleTagId?: number }[]) => {
-  return await articleDao.updateArticle(articleId, articleData, tags);
+const updatePostById = async (postId: number, postData: PostUpdateParamsType) => {
+  return await postDao.updatePost(postId, postData);
 };
 
-const getAllArticles = async (params: Pagination) => {
-  return await articleDao.getAllArticles(params);
+const getAllPosts = async (params: Pagination) => {
+  return await postDao.getAllPosts(params);
 };
 
-export default { createArticle, getArticlesByUserId, getArticleById, updateArticleById, getAllArticles };
+export default { createPost, getPostsByUserId, getPostById, updatePostById, getAllPosts };

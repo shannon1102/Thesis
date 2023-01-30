@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
-import { Province } from '../../entities/province';
+import { Province } from '../../entities/address/province';
+
 
 const proviceDaos = {
   async getList() {
