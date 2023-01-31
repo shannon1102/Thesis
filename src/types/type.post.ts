@@ -6,6 +6,7 @@ export type PostCreateParamsType = {
   description?: string;
   userId: number;
   status?: string;
+  media?: number[];
 };
 
 export type PostUpdateParamsType = {

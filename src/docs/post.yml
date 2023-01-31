@@ -1,17 +1,17 @@
 paths:
-  /api/v1/get_list_posts:
+  /api/v1/posts:
     get:
       summary: get  posts
       tags:
         - Post
       parameters:
         - in: query
-          name: index
+          name: offset
           schema:
             type: integer
           description: The number of items to skip before starting to collect the result set
         - in: query
-          name: count
+          name: limit
           schema:
             type: integer
           description: The number of items to collect the result set
@@ -33,13 +33,44 @@ paths:
                     type: string
                   result:
                     type: object
-  /api/v1/get_post:
     post:
-      summary: Update an post
+      summary: add new post
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                image:
+                  type: array
+                  items:
+                    type: number
+                video:
+                  type: number
+
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/posts/{id}:
+    get:
+      summary: Get a  post
       tags:
         - Post
       parameters:
-        - in: query
+        - in: path
           name: id
           schema:
             type: string
@@ -56,30 +87,31 @@ paths:
                     type: string
                   result:
                     type: object
-  /api/v1/add_post:
-    post:
-      summary: add new post
+    put:
+      summary: Edit  post
       tags:
         - Post
       parameters:
-        - in: query
-          name: description
+        - in: path
+          name: id
           schema:
-            type: string
-          description: Description
+            type: number
+          description: id of post
       requestBody:
-          content:
-            multipart/form-data:
-              schema:
-                type: object
-                properties:
-                  image:
-                    type: array
-                    items: 
-                      type: file 
-                  video:
-                    type: file
-       
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                image:
+                  type: array
+                  items:
+                    type: number
+                video:
+                  type: number
+
       responses:
         "200": # status code
           description: Json format of srt file
@@ -92,57 +124,15 @@ paths:
                     type: string
                   result:
                     type: object
-  /api/v1/edit_post:
-    post:
-      summary: Edit  post
+    delete:
+      summary: Delete post
       tags:
         - Post
       parameters:
-        - in: query
-          name: described
-          schema:
-            type: string
-          description: The number of items to skip before starting to collect the result set
-        - in: query
-          name: status
-          schema:
-            type: string
-          description: The number of items to collect the result set
-      requestBody:
-          content:
-            multipart/form-data:
-              schema:
-                type: object
-                properties:
-                  image:
-                    type: array 
-                    items:
-                      type: file
-                  video:
-                    type: file
-       
-      responses:
-        "200": # status code
-          description: Json format of srt file
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                  result:
-                    type: object  
-  /api/v1/delete_post:
-    post:
-      summary: Delte post
-      tags:
-        - Post
-      parameters:
-        - in: query
+        - in: path
           name: id
           schema:
-            type: string
+            type: number
           description: post id
       responses:
         "200": # status code

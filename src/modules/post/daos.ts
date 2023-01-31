@@ -7,6 +7,7 @@ import { PostCreateParamsType, PostUpdateParamsType } from "../../types/type.pos
 
 const createPost = async (data: Post) => {
   const postRepository = getRepository(Post);
+  console.log("POST",data);
   const postData = {
     ...data,
     createdAt: new Date(),
@@ -21,9 +22,10 @@ const getPostById = async (id: number) => {
   const postRepository = getRepository(Post);
   const post = await postRepository
     .createQueryBuilder("p")
+    .leftJoinAndSelect("p.mediaMaps","media","media.targetId = p.id and media.targetType = 'post'")
     .leftJoinAndSelect("p.likes", "like", "like.postId = p.id")
-    .leftJoinAndSelect("p.comment", "cmt", "cmt.isDeleted = false and cmt.postId = p.id")
-    .where(`p.id = ${id} and a.isDeleted = false`)
+    .leftJoinAndSelect("p.comments", "cmt", "cmt.isDeleted = false and cmt.postId = p.id")
+    .where(`p.id = ${id} and p.isDeleted = false`)
     .getOne();
   return post;
 };
@@ -37,7 +39,7 @@ const getPostsByUserId = async (condition: { userId: number; exceptPostId?: numb
   const posts = await postRepository
     .createQueryBuilder("a")
     .leftJoinAndSelect("a.likes", "like", "like.postId = a.id")
-    .leftJoinAndSelect("a.comment", "cmt", "cmt.isDeleted = false and cmt.postId = a.id")
+    .leftJoinAndSelect("a.comments", "cmt", "cmt.isDeleted = false and cmt.postId = a.id")
     .where(whereConditionGetPost)
     .orderBy("a.createdAt", "DESC")
     .skip(condition.offset || 0)

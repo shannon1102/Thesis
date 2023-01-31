@@ -7,6 +7,7 @@ import postService from "./services";
 
 const createPost = async (req: Request, res: Response) => {
   const { description } = req.body;
+  console.log("req")
   const currentUserId = req.user.id;
   const post = await postService.createPost({ description, userId: currentUserId });
   delete post.userId;
@@ -43,18 +44,19 @@ const getPostById = async (req: Request, res: Response) => {
 };
 
 const updatePostById = async (req: Request, res: Response) => {
-  const id: number = Number(req.params.PostId);
+  console.log(req.params)
+  const id: number = Number(req.params.id);
   const currentUserId: number = req.user?.id;
   if (!currentUserId) {
     throw new CustomError(codes.NOT_FOUND);
   }
   const checkPost = await postService.getPostById(id);
-  if (checkPost.Post.userId !== currentUserId && req.user.role !== ROLES.ADMIN) {
+  if (checkPost.post.userId !== currentUserId && req.user.role !== ROLES.ADMIN) {
     throw new CustomError(codes.FORBIDDEN);
   }
-  const tagIds = req.body.tagIds;
   const dataUpdate = req.body;
-  delete dataUpdate.tagIds;
+  delete dataUpdate.image
+  delete dataUpdate.video
   const post = await postService.updatePostById(id, dataUpdate);
   if (Number(currentUserId) !== Number(post.userId)) {
     throw new CustomError(codes.UNAUTHORIZED);

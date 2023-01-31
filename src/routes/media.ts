@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/media", upload.array("files"), asyncMiddleware(mediaControllers.uploadImage));
+// router.post("/cloudinary/media", upload.array("files"), asyncMiddleware(mediaControllers.uploadCloudImage));
 router.get("/media/:id", asyncMiddleware(mediaControllers.getMediaById));
 
 export default router;

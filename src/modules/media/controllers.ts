@@ -6,15 +6,28 @@ import { Media } from "../../entities/media";
 import fs from "fs";
 
 const uploadImage = async (req: Request, res: Response) => {
+  console.log("reqBFFFFFFFF",req)
   if (!req.files?.length) {
     throw new CustomError(codes.NOT_FOUND);
   }
+  console.log("req",req)
   const listMedia: Media[] = await mediaServices.createMedia(req.files as Express.Multer.File[]);
   res.status(200).json({
     status: "success",
     result: listMedia,
   });
 };
+
+// const uploadCloudImage = async (req: Request, res: Response) => {
+//   if (!req.files?.length) {
+//     throw new CustomError(codes.NOT_FOUND);
+//   }
+//   const listMedia: Media[] = await mediaServices.createMedia(req.files as Express.Multer.File[]);
+//   res.status(200).json({
+//     status: "success",
+//     result: listMedia,
+//   });
+// };
 
 const getMediaById = async (req: Request, res: Response) => {
   const { id } = req.params;
