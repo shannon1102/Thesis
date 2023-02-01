@@ -45,12 +45,10 @@ paths:
               properties:
                 description:
                   type: string
-                image:
+                media:
                   type: array
                   items:
                     type: number
-                video:
-                  type: number
 
       responses:
         "200": # status code
@@ -105,13 +103,10 @@ paths:
               properties:
                 description:
                   type: string
-                image:
+                media:
                   type: array
                   items:
                     type: number
-                video:
-                  type: number
-
       responses:
         "200": # status code
           description: Json format of srt file

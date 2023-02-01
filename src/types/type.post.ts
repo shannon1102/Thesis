@@ -12,6 +12,7 @@ export type PostCreateParamsType = {
 export type PostUpdateParamsType = {
   description?: string;
   isDeleted?: boolean;
+  media?: number[];
 };
 
 export type PostResponse = {

@@ -6,10 +6,11 @@ import CustomError from "../../errors/customError";
 import postService from "./services";
 
 const createPost = async (req: Request, res: Response) => {
-  const { description } = req.body;
+  const { description,media } = req.body;
   console.log("req")
   const currentUserId = req.user.id;
-  const post = await postService.createPost({ description, userId: currentUserId });
+  //creat media here
+  const post = await postService.createPost({ description, userId: currentUserId, media});
   delete post.userId;
   res.status(200).json({
     status: "success",
@@ -35,7 +36,7 @@ const getPosts = async (req: Request, res: Response) => {
 };
 
 const getPostById = async (req: Request, res: Response) => {
-  const id: number = Number(req.params.PostId);
+  const id: number = Number(req.params.id);
   const response = await postService.getPostById(id);
   res.status(200).json({
     status: "success",

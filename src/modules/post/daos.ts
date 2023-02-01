@@ -4,6 +4,8 @@ import { User } from "../../entities/user";
 import { Pagination } from "../../types/type.pagination";
 import { Post } from "../../entities/post/post";
 import { PostCreateParamsType, PostUpdateParamsType } from "../../types/type.post";
+import mediaDaos from "../media/daos";
+import mediaMapDaos from "../mediaMap/daos";
 
 const createPost = async (data: Post) => {
   const postRepository = getRepository(Post);
@@ -22,7 +24,8 @@ const getPostById = async (id: number) => {
   const postRepository = getRepository(Post);
   const post = await postRepository
     .createQueryBuilder("p")
-    .leftJoinAndSelect("p.mediaMaps","media","media.targetId = p.id and media.targetType = 'post'")
+    .leftJoinAndSelect("p.mediaMaps", "mm", `mm.targetType='post'`)
+    .leftJoinAndSelect("mm.media", "m")
     .leftJoinAndSelect("p.likes", "like", "like.postId = p.id")
     .leftJoinAndSelect("p.comments", "cmt", "cmt.isDeleted = false and cmt.postId = p.id")
     .where(`p.id = ${id} and p.isDeleted = false`)
@@ -38,6 +41,8 @@ const getPostsByUserId = async (condition: { userId: number; exceptPostId?: numb
   }
   const posts = await postRepository
     .createQueryBuilder("a")
+    .leftJoinAndSelect("a.mediaMaps", "mm", `mm.targetType='post'`)
+    .leftJoinAndSelect("mm.media", "m")
     .leftJoinAndSelect("a.likes", "like", "like.postId = a.id")
     .leftJoinAndSelect("a.comments", "cmt", "cmt.isDeleted = false and cmt.postId = a.id")
     .where(whereConditionGetPost)
@@ -54,6 +59,7 @@ const getPostsByUserId = async (condition: { userId: number; exceptPostId?: numb
 
 const updatePost = async (postId: number, data: PostUpdateParamsType) => {
   const postRepository = getRepository(Post);
+
   const postData = {
     ...data,
     updatedAt: new Date(),
@@ -77,6 +83,8 @@ const getAllPosts = async (params: Pagination) => {
   const postRepository = getRepository(Post);
   const posts = await postRepository
     .createQueryBuilder("a")
+    .leftJoinAndSelect("a.mediaMaps", "mm", `mm.targetType='post'`)
+    .leftJoinAndSelect("mm.media", "m")
     .leftJoinAndSelect("a.likes", "like", "like.postId = a.id")
     .leftJoinAndSelect("a.comments", "cmt", "cmt.isDeleted = false and cmt.postId = a.id")
     .leftJoinAndSelect("a.user", "u")

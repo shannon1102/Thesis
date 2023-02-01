@@ -5,6 +5,7 @@ import mediaMapDaos from "./daos";
 
 const createMediaMaps = async (mediaMaps: MediaMap[]): Promise<MediaMap[]> => {
   let listMediaMap: MediaMap[] = [];
+  console.log("MediaMap",mediaMaps);
   for (let i = 0; i < mediaMaps.length; i++) {
     const mediaMap = mediaMaps[i];
     const newMediaMap = await mediaMapDaos.createMediaMap(mediaMap);
