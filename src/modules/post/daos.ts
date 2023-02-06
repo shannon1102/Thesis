@@ -65,9 +65,11 @@ const updatePost = async (postId: number, data: PostUpdateParamsType) => {
     updatedAt: new Date(),
   };
   await postRepository.update(postId, postData);
-  const post: Post = await postRepository.findOne(postId);
+  const post: Post = await getPostById(postId);
   return post;
 };
+
+
 
 const getPostsByUserIdFilterByTag = async (condition: { userId: number; limit?: number }) => {
   const userRepository = getRepository(User);
@@ -101,6 +103,20 @@ const getAllPosts = async (params: Pagination) => {
   };
 };
 
+const deletePost = async (postId: number) => {
+  const postRepository = getRepository(Post);
+  const deletePost = postRepository.findOne(postId);
+
+  const postData = {
+    ...deletePost,
+    isDeleted: true,
+    updatedAt: new Date(),
+  };
+  await postRepository.update(postId, postData);
+  const post: Post = await getPostById(postId);
+  return post;
+
+}
 export default {
   createPost,
   getPostById,
@@ -108,4 +124,5 @@ export default {
   updatePost,
   getPostsByUserIdFilterByTag,
   getAllPosts,
+  deletePost
 };

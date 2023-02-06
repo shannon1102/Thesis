@@ -1,0 +1,121 @@
+paths:
+  /api/v1/comments:
+    get:
+      summary: get all article
+      tags:
+        - Comments
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The number of items to collect the result set
+
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+    post:
+      summary: Create comment to a post
+      tags:
+        - Comments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postId:
+                  type: integer
+                comment:
+                  type: string
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/comments/{id}:
+    get:
+      summary: get comment by id
+      tags:
+        - Comments
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: comment id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+    put:
+      summary: update comment
+      tags:
+        - Comments
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: post id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      summary: Delete comment
+      tags:
+        - Comments
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: comment id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object

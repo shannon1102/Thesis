@@ -6,11 +6,11 @@ import CustomError from "../../errors/customError";
 import postService from "./services";
 
 const createPost = async (req: Request, res: Response) => {
-  const { description,media } = req.body;
+  const { description, media } = req.body;
   console.log("req")
   const currentUserId = req.user.id;
   //creat media here
-  const post = await postService.createPost({ description, userId: currentUserId, media});
+  const post = await postService.createPost({ description, userId: currentUserId, media });
   delete post.userId;
   res.status(200).json({
     status: "success",
@@ -81,4 +81,13 @@ const getAllPosts = async (req: Request, res: Response) => {
   });
 };
 
-export default { createPost, getPosts, getPostById, updatePostById, getAllPosts };
+const deletePost = async (req: Request, res: Response) => {
+  const id: number = Number(req.params.id);
+  const data = await postService.deletePost(id);
+  res.status(200).json({
+    status: "success",
+    result: data,
+  });
+}
+
+export default { createPost, getPosts, getPostById, updatePostById, getAllPosts, deletePost };

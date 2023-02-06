@@ -54,49 +54,55 @@ const getPostById = async (id: number) => {
 
 const updatePostById = async (postId: number, postData: PostUpdateParamsType) => {
   let media = postData.media
-  const findProduct = await postDao.getPostById(postId);
-
+  const findPost = await postDao.getPostById(postId);
+  console.log("findProduct",findPost);
   if (postData.media) {
    
-    const currentMedia = findProduct.mediaMaps;
-    const deleteMedia = currentMedia
-      .filter((media: Media) => {
-        return !data.media.find((item) => item.id === media.id);
+    const currentMediaMap = findPost.mediaMaps;
+    const deleteMedia = currentMediaMap
+      .filter((media: MediaMap) => {
+        return !postData.media.find((item) => item === media.mediaId);
       })
-      .map((item: Media) => {
-        return item.id;
+      .map((item: MediaMap) => {
+        return item.mediaId;
       });
-    const addMedia: MediaMap[] = data.media
-      .filter((media: Media) => {
-        return !currentMedia.find((item) => item.id === media.id) && media.id !== data.featureImageId;
+      console.log("deleteMedia",deleteMedia);
+      //Delete Media , Delete MediaMap
+    const addMedia: MediaMap[] = postData.media
+      .filter((media: number) => {
+        return !currentMediaMap.find((item) => item.mediaId === media)
       })
-      .map((item: Media) => {
+      .map((item: number) => {
         return {
-          mediaId: item.id,
-          targetType: "product",
-          targetId: findProduct.id,
+          mediaId: item,
+          targetType: "post",
+          targetId: findPost.id,
         };
       });
     // delete media
     const listDeleteMediaMap: MediaMap[] = deleteMedia.map((item: number) => {
       return {
         mediaId: item,
-        targetType: "product",
-        targetId: id,
+        targetType: "post",
+        targetId: findPost.id,
       };
     });
     await mediaMapServices.deleteMediaMaps(listDeleteMediaMap);
     // update media
     await mediaMapServices.createMediaMaps(addMedia);
-    delete data.media;
+    delete postData.media;
 
-  let currentMediaIds = 
+  // let currentMediaIds = 
   delete postData.media
+}
   return await postDao.updatePost(postId, postData);
 };
+const deletePost = async (postId: number) =>{
 
+  return await postDao.deletePost(postId);
+}
 const getAllPosts = async (params: Pagination) => {
   return await postDao.getAllPosts(params);
 };
 
-export default { createPost, getPostsByUserId, getPostById, updatePostById, getAllPosts };
+export default { createPost, getPostsByUserId, getPostById, updatePostById, getAllPosts, deletePost };

@@ -22,6 +22,9 @@ export class Comment {
 
   @Column()
   userId: number;
+  
+  @Column()
+  postId: number;
 
   @ManyToOne(() => User, (user) => user.comments)
   @JoinColumn({ name: "userId" })

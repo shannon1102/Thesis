@@ -1,0 +1,26 @@
+paths:
+  /api/v1/like:
+    post:
+      summary: Like a post
+      tags:
+        - Likes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postId:
+                  type: integer
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object

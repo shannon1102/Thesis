@@ -14,8 +14,8 @@ export class Friend {
   @Column()
   updatedAt: Date;
 
-  @Column({default: false})
-  isDeleted: boolean;
+  // @Column({default: false})
+  // isDeleted: boolean;
 
   @Column()
   userId: number;

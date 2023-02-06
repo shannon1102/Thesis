@@ -9,6 +9,6 @@ router.post("/posts", asyncMiddleware(postController.createPost));
 router.put("/posts/:id", asyncMiddleware(postController.updatePostById));
 router.get("/posts", asyncMiddleware(postController.getAllPosts));
 router.get("/posts/:id", asyncMiddleware(postController.getPostById));
-router.delete("/posts/:id", asyncMiddleware(postController.getPostById));
+router.delete("/posts/:id", asyncMiddleware(postController.deletePost));
 
 export default router;
