@@ -4,7 +4,7 @@ import ROLES from "../../constants/roles";
 import { Friend } from "../../entities/friend";
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";
-import FriendService from "./services";
+import friendService from "./services";
 
 const createFriend= async (req: Request, res: Response) => {
   const { friendId} = req.body;
@@ -12,7 +12,7 @@ const createFriend= async (req: Request, res: Response) => {
   const newFriend= new Friend();
   newFriend.userId = currentUserId;
   newFriend.friendId = friendId;
-  const creteFriendRes = await FriendService.createFriend(newFriend);
+  const creteFriendRes = await friendService.createFriend(newFriend);
   res.status(200).json({
     status: "success",
     result: creteFriendRes,
@@ -25,7 +25,7 @@ const getFriendById = async (req: Request, res: Response) => {
   if (currentUserId.role !== "admin") {
     throw new CustomError(codes.FORBIDDEN);
   }
-  const response = await FriendService.getFriendById(id);
+  const response = await friendService.getFriendById(id);
   res.status(200).json({
     status: "success",
     result: response,
@@ -33,9 +33,10 @@ const getFriendById = async (req: Request, res: Response) => {
 };
 
 const getAllFriends = async (req: Request, res: Response) => {
+  console.log("Get ALl Friends",req);
   const { limit, offset } = req.query;
   const userId = req.user.id
-  const friends = await FriendService.getAllFriends({
+  const friends = await friendService.getAllFriends({
     limit: Number(limit) || configs.MAX_RECORDS_PER_REQ,
     offset: Number(offset) || 0,
   },userId);
@@ -50,7 +51,7 @@ const getAllFriends = async (req: Request, res: Response) => {
 const deleteFriend= async (req: Request, res: Response) => {
   const id: number = Number(req.params.id);
 
-  const data = await FriendService.deleteFriendById(id);
+  const data = await friendService.deleteFriendById(id);
   res.status(200).json({
     status: "success",
     result: data,

@@ -9,6 +9,7 @@ const createPost = async (req: Request, res: Response) => {
   const { description, media } = req.body;
   console.log("req")
   const currentUserId = req.user.id;
+  console.log("reqCURRENTUSER",req.user)
   //creat media here
   const post = await postService.createPost({ description, userId: currentUserId, media });
   delete post.userId;

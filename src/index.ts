@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(asyncMiddleware(authMiddleware));
 app.use(asyncMiddleware(authRoleMiddleware));
-
+app.use('/static/uploads',express.static('uploads'))
 /* routes */
 routes(app).then(() => {
   app.use(errorHandler);

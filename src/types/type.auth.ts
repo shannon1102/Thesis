@@ -8,6 +8,7 @@ export type Register = {
 };
 
 export type Login = {
+  // phone?: number;
   email: string;
   password: string;
 };
