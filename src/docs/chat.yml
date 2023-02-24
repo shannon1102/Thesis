@@ -1,0 +1,124 @@
+paths:
+  /api/v1/chat/conversations:
+    get:
+      summary: get all conversation
+      tags:
+        - Chats
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The number of items to collect the result set
+
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+    post:
+      summary: Create Conversation
+      tags:
+        - Chats
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstUserId:
+                  type: integer
+                secondUserId:
+                  type: integer
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+  /api/v1/chat/conversations/{id}:
+    get:
+      summary: get Conversationo by id
+      tags:
+        - Chats
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: Conversationo id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+    delete:
+      summary: Delete comment
+      tags:
+        - Chats
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: comment id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/v1/chat/messages:
+     post:
+      summary: Create Conversation
+      tags:
+        - Chats
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstUserId:
+                  type: integer
+                secondeUserId:
+                  type: integer
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object

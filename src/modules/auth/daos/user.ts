@@ -46,12 +46,20 @@ const findUser = async (dataFind: { email?: string; id?: number; deviceId?: stri
       },
     });
   }
+  console.log("userrrrrr",user)
   return user;
 };
 
+const getUserInfo  = async (userId: number) => {
+  const userReposity = getRepository(User);
+  const  foundUser = await userReposity.findOne(userId);
+  console.log("FoundUser",foundUser);
+  return foundUser;
+
+}
 const updateUser = async (id: number, data: User) => {
   const userReposity = getRepository(User);
   await userReposity.update(id, data);
 };
 
-export default { createUser, findUser, updateUser };
+export default { createUser, findUser, updateUser, getUserInfo };

@@ -5,7 +5,7 @@ import { Comment } from "../../entities/post/comment";
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";
 import commentService from "./services";
-
+import postService from "../post/services";
 const createComment = async (req: Request, res: Response) => {
   const { postId, comment } = req.body;
   const currentUserId = req.user.id;
@@ -15,9 +15,10 @@ const createComment = async (req: Request, res: Response) => {
   newComment.comment = comment;
 
   const creteCommentRes = await commentService.createComment(newComment);
+  const updatePost = await postService.getPostById(newComment.postId)
   res.status(200).json({
     status: "success",
-    result: creteCommentRes,
+    result: updatePost,
   });
 };
 

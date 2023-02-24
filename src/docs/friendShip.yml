@@ -1,33 +1,9 @@
 paths:
   /api/v1/friends:
-    post:
-      summary: Create a friend
-      tags:
-        - Friends
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                friendId:
-                  type: number
-      responses:
-        "200": # status code
-          description: Json format of srt file
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                  result:
-                    type: object
     get:
       summary: get all friends 
       tags:
-        - Friends
+        - FriendShip
       parameters:
         - in: query
           name: offset
@@ -39,7 +15,11 @@ paths:
           schema:
             type: integer
           description: The number of items to collect the result set
-
+        - in: query
+          name: userId
+          schema:
+            type: integer
+          description: The userId
       responses:
         "200": # status code
           description: Json format of srt file
@@ -57,7 +37,7 @@ paths:
     get:
       summary: get all requested friends 
       tags:
-        - Friends
+        - FriendShip
       parameters:
         - in: query
           name: offset
@@ -86,7 +66,7 @@ paths:
     get:
       summary: get all requested friends 
       tags:
-        - Friends
+        - FriendShip
       parameters:
         - in: query
           name: offset
@@ -115,14 +95,14 @@ paths:
     post:
       summary: Set accept friends 
       tags:
-        - Friends
+        - FriendShip
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                friendId:
+                requesterId:
                   type: number
 
       responses:
@@ -137,11 +117,38 @@ paths:
                     type: string
                   result:
                     type: object     
+  
+  /api/v1/friends/add-friend:
+     post:
+      summary: Add friend
+      tags:
+        - FriendShip
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                addresseId:
+                  type: number
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  result:
+                    type: object
+
   /api/v1/friends/{id}:
     put:
       summary: Update an friend
       tags:
-        - Friends
+        - FriendShip
       parameters:
         - in: path
           name: id
@@ -180,7 +187,7 @@ paths:
     delete:
       summary: delete  friend
       tags:
-        - Friends
+        - FriendShip
       parameters:
         - in: path
           name: id

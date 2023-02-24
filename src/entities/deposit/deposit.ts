@@ -1,23 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne, OneToMany } from "typeorm";
 import "reflect-metadata";
-
-import { User } from "../user";
-import { OrderItem } from "./orderItem";
-
 @Entity()
-export class Order {
+export class Deposit {
   @PrimaryGeneratedColumn()
   id?: number;
 
   @Column()
-  code?: string;
-
-  @Column()
   userId?: number;
-
   @Column()
-  amount?: number;
-
+  price?: number;
   @Column()
   customerName: string;
   @Column()
@@ -39,11 +30,12 @@ export class Order {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP" })
   updatedAt?: Date;
 
-  @ManyToOne(() => User, (user) => user.orders)
-  @JoinColumn({ name: "userId", referencedColumnName: "id" })
-  user?: User;
+  // @ManyToOne(() => User, (user) => user.Deposits)
+  // @JoinColumn({ name: "userId", referencedColumnName: "id" })
+  // user?: User;
 
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
-  @JoinColumn({ name: "variantId", referencedColumnName: "id" })
-  orderItems?: OrderItem[];
+  // @ManyToOne(() => Product, (product) => product.)
+  // @JoinColumn({ name: "productId", referencedColumnName: "id" })
+  // product?: Product;
+
 }

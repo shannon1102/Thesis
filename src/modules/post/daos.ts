@@ -6,6 +6,7 @@ import { Post } from "../../entities/post/post";
 import { PostCreateParamsType, PostUpdateParamsType } from "../../types/type.post";
 import mediaDaos from "../media/daos";
 import mediaMapDaos from "../mediaMap/daos";
+import { formatLikePost,formatLikePosts } from "./helper";
 
 const createPost = async (data: Post) => {
   const postRepository = getRepository(Post);
@@ -27,10 +28,19 @@ const getPostById = async (id: number) => {
     .leftJoinAndSelect("p.mediaMaps", "mm", `mm.targetType='post'`)
     .leftJoinAndSelect("mm.media", "m")
     .leftJoinAndSelect("p.likes", "like", "like.postId = p.id")
+    .leftJoinAndSelect("p.user", "user", "user.id = p.userId")
     .leftJoinAndSelect("p.comments", "cmt", "cmt.isDeleted = false and cmt.postId = p.id")
+    .leftJoinAndSelect("cmt.user","poster")
     .where(`p.id = ${id} and p.isDeleted = false`)
     .getOne();
-  return post;
+
+    let {isLiked,like } = formatLikePost(post);
+    // delete post.likes
+
+  return {...post,
+    isLiked,
+    like
+  };
 };
 
 const getPostsByUserId = async (condition: { userId: number; exceptPostId?: number; limit?: number; offset?: number }) => {
@@ -89,6 +99,7 @@ const getAllPosts = async (params: Pagination) => {
     .leftJoinAndSelect("mm.media", "m")
     .leftJoinAndSelect("a.likes", "like", "like.postId = a.id")
     .leftJoinAndSelect("a.comments", "cmt", "cmt.isDeleted = false and cmt.postId = a.id")
+    .leftJoinAndSelect("cmt.user","poster")
     .leftJoinAndSelect("a.user", "u")
     // .select(["a", "at", "t", "u.id", "u.name", "u.avatar"])
     .where("a.isDeleted = false")
@@ -98,7 +109,7 @@ const getAllPosts = async (params: Pagination) => {
     .getMany();
   const total = await postRepository.createQueryBuilder("a").where("a.isDeleted = false").getCount();
   return {
-    posts,
+    posts: formatLikePosts(posts),
     total,
   };
 };

@@ -2,7 +2,6 @@ import { MediaMap } from "../mediaMap";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import "reflect-metadata";
 import { Media } from "../media";
-import { Option } from "../product/option";
 import { User } from "../user";
 import { Comment } from "./comment";
 import { Like } from "./like";

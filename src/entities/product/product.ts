@@ -2,7 +2,6 @@ import { MediaMap } from "../mediaMap";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import "reflect-metadata";
 import { Media } from "../media";
-import { Option } from "./option";
 
 import { User } from "../user";
 
@@ -21,22 +20,39 @@ export class Product {
   status?: string;
 
   @Column({ nullable: true })
-  vendorId?: number;
+  numFloors?: number;
+  
+  @Column({ nullable: true })
+  numBedRooms?: number;
 
-  @Column({ default: 0 })
+  @Column({ nullable: true })
+  squaredMeterArea?: number;
+
+  @Column({ nullable: true })
+  lengthMeter?: number;
+
+  @Column({ nullable: true })
+  widthMeter?: number;
+
+  @Column({ nullable: true })
+  certificateOfland?: number;
+
+  @Column({ default: "" })
+  district?: string;
+
+  
+  @Column({ default: "" })
+  ward?: string;
+  
+  @Column()
+  houseType?: number;
+  @Column()
+  userId: number;
+  @Column()
   price?: number;
-
-  @Column({ default: 0 })
-  comparePrice?: number;
-
+  
   @Column()
   featureImageId?: number;
-
-  @Column()
-  url?: string;
-
-  @Column()
-  bestSelling?: boolean;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt?: Date;
@@ -51,14 +67,9 @@ export class Product {
   @OneToMany(() => MediaMap, (mediaMap) => mediaMap.product)
   mediaMaps?: MediaMap[];
 
-  @OneToMany(() => Option, (option) => option.product)
-  options?: Option[];
 
   @ManyToOne(() => User, (user) => user.products)
   user?: User;
-
   // custom field
   media?: Media[];
-  availableNumber?: number;
-  collections?: number[];
 }

@@ -140,3 +140,23 @@ paths:
             application/json:
               schema:
                 type: object
+  /api/v1/profile/{userId}:
+    get:
+      summary: get user info
+      tags:
+        - Auth
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: number
+          description: userId
+      
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: object
+    

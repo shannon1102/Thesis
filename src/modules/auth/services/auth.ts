@@ -63,11 +63,19 @@ const updatePassword = async (user: User, confirmPw: string, newPw: string) => {
   const hashPassword = (await hashBcrypt(newPw, salt)) as string;
   await userDao.updateUser(user.id, { password: hashPassword });
 };
+const getUserInfo = async (userId: number) =>{
+  const foundUser = await userDao.getUserInfo(userId);
+  if (!foundUser) {
+    throw new CustomError(codes.NOT_FOUND, "Not Found");
+  }
+  return foundUser;
+}
 
 const updateUserInfo = async (user: User, data: User): Promise<User> => {
   delete data.id;
   delete data.email;
   delete data.password;
+  console.log("DATAAAAAAAAAAAAA",data);
   await userDao.updateUser(user.id, data);
   return {
     ...user,
@@ -75,4 +83,4 @@ const updateUserInfo = async (user: User, data: User): Promise<User> => {
   };
 };
 
-export default { register, login, createUserByDeviceId, updateUserInfo, updatePassword };
+export default { register, login, createUserByDeviceId, updateUserInfo, updatePassword, getUserInfo };

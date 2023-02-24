@@ -23,20 +23,25 @@ export class createFriendTable1675653509497 implements MigrationInterface {
                   type: "datetime",
                 },
                 {
-                  name: "userId",
+                  name: "requesterId",
                   type: "int",
                 },
                 {
-                  name: "friendId",
+                  name: "addresseeId",
                   type: "int",
                 },
+                {
+                  name: "statusCode",
+                  type: "int"
+                  //1: Requested ,2: Accept,3: Declined
+                }
               ],
             }),
             true,
           );
           queryRunner.clearSqlMemory();
           const foreignKeyUser = new TableForeignKey({
-            columnNames: ["userId"],
+            columnNames: ["requesterId"],
             referencedColumnNames: ["id"],
             referencedTableName: "user",
             onDelete: "CASCADE",
@@ -44,7 +49,7 @@ export class createFriendTable1675653509497 implements MigrationInterface {
           await queryRunner.createForeignKey("friend", foreignKeyUser);
       
           const foreignKeyFriend = new TableForeignKey({
-              columnNames: ["friendId"],
+              columnNames: ["addresseeId"],
               referencedColumnNames: ["id"],
               referencedTableName: "user",
               onDelete: "CASCADE",

@@ -1,8 +1,10 @@
 import authService from "../services/auth";
+import friendService from "../../friend/services";
 import { Request, Response } from "express";
 import { User } from "../../../entities/user";
 import CustomError from "../../../errors/customError";
 import codes from "../../../errors/codes";
+import configs from "../../../configs";
 
 const register = async (req: Request, res: Response) => {
   const { email, password, name, phone, avatar } = req.body;
@@ -46,6 +48,25 @@ const me = async (req: Request, res: Response) => {
     result: user,
   });
 };
+const getUserInfo = async (req: Request, res: Response) => {
+  const userId = +req.params.userId;
+  console.log("USERID",userId)
+
+  let user = await authService.getUserInfo(userId);
+  delete user.password;
+  delete user.role;
+  
+  const friends = await friendService.getAllFriends({
+    limit: configs.MAX_RECORDS_PER_REQ,
+    offset:  0,
+  },userId)
+  
+  return res.status(200).json({
+    status: "success",
+    result: {...user,
+    friends: friends[0]},
+  });
+};
 
 const updatePassword = async (req: Request, res: Response) => {
   const { oldPassword, newPassword } = req.body;
@@ -63,7 +84,7 @@ const updatePassword = async (req: Request, res: Response) => {
 };
 
 const updateInfo = async (req: Request, res: Response) => {
-  const { name, avatar, phone } = req.body;
+  const { name, avatar, phone ,sex,age } = req.body;
   const user = req.user;
   let newInfo: User;
   if (name) {
@@ -78,6 +99,15 @@ const updateInfo = async (req: Request, res: Response) => {
     newInfo = newInfo || {};
     newInfo.phone = phone;
   }
+
+  if (sex) {
+    newInfo = newInfo || {};
+    newInfo.sex = sex;
+  }
+  if (age) {
+    newInfo = newInfo || {};
+    newInfo.age = age;
+  }
   if (!newInfo) {
     throw new CustomError(codes.BAD_REQUEST, "No update information about user!");
   }
@@ -90,4 +120,4 @@ const updateInfo = async (req: Request, res: Response) => {
   });
 };
 
-export default { register, login, me, createUserByDevice, updatePassword, updateInfo };
+export default { register, login, me, createUserByDevice, updatePassword, updateInfo , getUserInfo};

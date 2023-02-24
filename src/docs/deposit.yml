@@ -1,9 +1,9 @@
 paths:
-  /api/v1/orders:
+  /api/v1/deposit:
     post:
       summary: Create an order
       tags:
-        - Orders
+        - Deposits
       requestBody:
         content:
           application/json:
@@ -47,11 +47,11 @@ paths:
                     type: string
                   result:
                     type: object
-  /api/v1/admin/orders:
+  /api/v1/admin/deposit:
     get:
-      summary: Admin get orders
+      summary: Admin get deposit
       tags:
-        - Orders
+        - Deposits
       parameters:
         - in: query
           name: limit
@@ -87,11 +87,11 @@ paths:
                 type: array
                 items:
                   type: object
-  /api/v1/admin/orders/{id}:
+  /api/v1/admin/deposit/{id}:
     put:
       summary: Admin update status order (Switch NEW INCOMING, DONE,CANCEL)
       tags:
-        - Orders
+        - Deposits
       parameters:
         - in: path
           name: id
@@ -117,13 +117,12 @@ paths:
                   status:
                     type: string
                   result:
-                    type: object
-  
-  /api/v1/orders/{id}:
+                    type: object  
+  /api/v1/deposit/{id}:
     get:
       summary: get order by id
       tags:
-        - Orders
+        - Deposits
       parameters:
         - in: path
           name: id
@@ -142,11 +141,11 @@ paths:
                     type: string
                   result:
                     type: object
-  /api/v1/user/orders:
+  /api/v1/user/deposit:
     get:
       summary: get list order
       tags:
-        - Orders
+        - Deposits
       parameters:
         - in: query
           name: limit
@@ -185,11 +184,11 @@ paths:
                     type: string
                   result:
                     type: object
-  /api/v1/user/orders/{id}:
+  /api/v1/user/deposit/{id}:
     put:
       summary: User update status order(switch status from (NEW or INCOMING) -> (DONE or CANCEL))
       tags:
-        - Orders
+        - Deposits
       parameters:
         - in: path
           name: id
@@ -216,5 +215,3 @@ paths:
                     type: string
                   result:
                     type: object
-
-

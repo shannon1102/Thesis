@@ -1,5 +1,5 @@
 paths:
-  /api/v1/admin/products:
+  /api/v1/products:
     post:
       summary: create product
       tags:
@@ -18,37 +18,31 @@ paths:
                   type: string
                 price:
                   type: number
-                comparePrice:
+                numFloors:
                   type: number
-                url:
-                  type: string
-                vendorId:
+                numBedRooms:
                   type: number
-                availableNumber:
+                squaredMeterArea:
                   type: number
                 featureImageId:
                   type: number
-                bestSelling:
-                  type: boolean
+                lengthMeter:
+                  type: number
+                widthMeter:
+                  type: number
+                certificateOfland:
+                  type: number
+                district:
+                  type: string
+                ward:
+                  type: string
                 media:
                   type: array
                   items:
                     type: number
-                collections:
-                  type: array
-                  items:
+                houseType:
                     type: number
-                options:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      title:
-                        type: string
-                      values:
-                        type: array
-                        items:
-                          type: string
+              
       responses:
         "200": # status code
           description: Json format of srt file
@@ -61,86 +55,6 @@ paths:
                     type: string
                   result:
                     type: object
-  /api/v1/admin/products/{id}:
-    put:
-      summary: update product
-      tags:
-        - Product
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: number
-          description: product id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                description:
-                  type: string
-                status:
-                  type: string
-                price:
-                  type: number
-                comparePrice:
-                  type: number
-                url:
-                  type: string
-                vendorId:
-                  type: number
-                featureImageId:
-                  type: number
-                bestSelling:
-                  type: boolean
-                media:
-                  type: array
-                  items:
-                    type: number
-                options:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      title:
-                        type: string
-                      values:
-                        type: array
-                        items:
-                          type: string
-      responses:
-        "200": # status code
-          description: Json format of srt file
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-    delete:
-      summary: delete product
-      tags:
-        - Product
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: number
-          description: product id
-      responses:
-        "200": # status code
-          description: Json format of srt file
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-
-  /api/v1/products:
     get:
       summary: get products
       tags:
@@ -208,6 +122,82 @@ paths:
                 items:
                   type: object
   /api/v1/products/{id}:
+    put:
+      summary: update product
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          description: product id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                price:
+                  type: number
+                numFloors:
+                  type: number
+                numBedRooms:
+                  type: number
+                squaredMeterArea:
+                  type: number
+                featureImageId:
+                  type: number
+                lengthMeter:
+                  type: number
+                widthMeter:
+                  type: number
+                certificateOfland:
+                  type: number
+                district:
+                  type: string
+                ward:
+                  type: string
+                media:
+                  type: array
+                  items:
+                    type: number
+                houseType:
+                    type: number
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    delete:
+      summary: delete product
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          description: product id
+      responses:
+        "200": # status code
+          description: Json format of srt file
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
     get:
       summary: get product
       tags:
@@ -227,3 +217,5 @@ paths:
                 type: array
                 items:
                   type: object
+
+    

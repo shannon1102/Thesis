@@ -18,14 +18,20 @@ export class Friend {
   // isDeleted: boolean;
 
   @Column()
-  userId: number;
+  addresseeId: number;
 
-  @ManyToOne(() => User, (user) => user.comments)
-  @JoinColumn({ name: "userId" })
-  user: User;
+  @Column()
+  requesterId: number;
 
-  @ManyToOne(() => User, (user) => user.friends)
-  @JoinColumn({ name: "friendId" })
-  friendId: User;
+  @Column()
+  statusCode: number;
+
+  @ManyToOne(() => User, (user) => user.requesterFriendList)
+  @JoinColumn({ name: "requesterId" })
+  requester: User;
+
+  @ManyToOne(() => User, (user) => user.addresseeFriendList)
+  @JoinColumn({ name: "addresseeId" })
+  addressee: User;
 
 }

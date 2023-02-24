@@ -25,6 +25,7 @@ export type PostResponse = {
   updatedAt?: Date;
   media?: Media[];
   // productCollections?: ProductCollection[];
-  like: number;
+  numLikes: number;
+  isLiked: boolean;
   comments: Comment[];
 };

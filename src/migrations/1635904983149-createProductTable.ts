@@ -27,17 +27,27 @@ export class createProductTable1635904983149 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "vendorId",
+            name: "numFloors",
             type: "int",
             isNullable: true,
           },
           {
-            name: "price",
+            name: "numBedRooms",
             type: "int",
             default: 0,
           },
           {
-            name: "comparePrice",
+            name: "squaredMeterArea",
+            type: "int",
+            default: 0,
+          },
+          {
+            name: "lengthMeter",
+            type: "int",
+            default: 0,
+          },
+          {
+            name: "widthMeter",
             type: "int",
             default: 0,
           },
@@ -46,8 +56,30 @@ export class createProductTable1635904983149 implements MigrationInterface {
             type: "int",
           },
           {
-            name: "url",
+            name: "certificateOfLand",
+            type: "int"
+          },
+          {
+            name: "district",
             type: "varchar",
+          },
+          {
+            name: "ward",
+            type: "varchar",
+          },
+
+          {
+            name: "houseType",
+            type: "int",
+          },
+          {
+            name: "userId",
+            type: "int"
+          },
+          {
+            name: "price",
+            type: "bigint",
+            default: 0,
           },
           {
             name: "createdAt",
@@ -65,13 +97,21 @@ export class createProductTable1635904983149 implements MigrationInterface {
       true,
     );
     queryRunner.clearSqlMemory();
-    const foreignKey = new TableForeignKey({
+    const featureImageForeignKey = new TableForeignKey({
       columnNames: ["featureImageId"],
       referencedColumnNames: ["id"],
       referencedTableName: "media",
       onDelete: "CASCADE",
     });
-    await queryRunner.createForeignKey("product", foreignKey);
+    await queryRunner.createForeignKey("product", featureImageForeignKey);
+    queryRunner.clearSqlMemory();
+    const userForeignKey = new TableForeignKey({
+      columnNames: ["userId"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "user",
+      onDelete: "CASCADE",
+    });
+    await queryRunner.createForeignKey("product", userForeignKey);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

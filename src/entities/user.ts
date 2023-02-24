@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Order } from "./deposit/order";
+import { Deposit } from "./deposit/deposit";
 import { UserMeta } from "./userMeta";
 import { Post } from "./post/post";
 import { Product } from "./product/product";
@@ -26,6 +26,12 @@ export class User {
   @Column()
   password?: string;
 
+  @Column()
+  sex?: string;
+  
+  @Column()
+  age?:number;
+
   @Column({ type: "enum", default: "user" })
   role?: "admin" | "user";
 
@@ -35,7 +41,8 @@ export class User {
   @OneToMany(() => Post, (post) => post.user) posts?: Post[];
   @OneToMany(() => Product, (product) => product.user) products?: Product[];
   @OneToMany(() => Comment, (comment) => comment.user) comments?: Comment[];
-  @OneToMany(() => Order, (order) => order.user) orders?: Order[];
+  // @OneToMany(() => Deposit, (deposit) => deposit.userId) deposits?: Deposit[];
   @OneToMany(() => UserMeta, (userMeta) => userMeta.user) userMetas?: UserMeta[];
-  @OneToMany(() => Friend, (friend) => friend.user) friends?: UserMeta[];
+  @OneToMany(() => Friend, (requesterFriendList) => requesterFriendList.requester) requesterFriendList?: Friend[];
+  @OneToMany(() => Friend, (addresseeFriendList) => addresseeFriendList.requester) addresseeFriendList?: Friend[];
 }
