@@ -3,17 +3,35 @@ import configs from "../../configs";
 import ROLES from "../../constants/roles";
 import codes from "../../errors/codes";
 import CustomError from "../../errors/customError";
-import DepositService from "./services";
+import depositService from "./services";
+import { Deposit } from "../../entities/deposit/deposit";
 
 const createDeposit = async (req: Request, res: Response) => {
-  const { postId, Deposit } = req.body;
+  
+  let { productId , price, customerName,
+    customerEmail, customerPhone,
+    customerAddress,
+    paymentMethod,
+    status,
+  } = req.body;
   const currentUserId = req.user.id;
+
+
   const newDeposit = new Deposit();
   newDeposit.userId = currentUserId;
-  newDeposit.postId = postId;
-  newDeposit.Deposit = Deposit;
 
-  const creteDepositRes = await DepositService.createDeposit(newDeposit);
+  newDeposit.productId =productId;
+  newDeposit.price= price;
+  newDeposit.customerAddress =customerAddress;
+  newDeposit.customerEmail =customerEmail;
+  newDeposit.customerName =customerName;
+  newDeposit.customerPhone= customerPhone;
+  newDeposit.paymentMethod ="Card";
+  newDeposit.status = "Success"
+  console.log("Aloooooo",newDeposit)
+
+
+  const creteDepositRes = await depositService.createDeposit(newDeposit);
   res.status(200).json({
     status: "success",
     result: creteDepositRes,
@@ -26,7 +44,7 @@ const getDepositById = async (req: Request, res: Response) => {
   if (currentUserId.role !== "admin") {
     throw new CustomError(codes.FORBIDDEN);
   }
-  const response = await DepositService.getDepositById(id);
+  const response = await depositService.getDepositById(id);
   res.status(200).json({
     status: "success",
     result: response,
@@ -35,7 +53,7 @@ const getDepositById = async (req: Request, res: Response) => {
 
 const getAllDeposits = async (req: Request, res: Response) => {
   const { limit, offset } = req.query;
-  const Deposits = await DepositService.getAllDeposits({
+  const Deposits = await depositService.getAllDeposits({
     limit: Number(limit) || configs.MAX_RECORDS_PER_REQ,
     offset: Number(offset) || 0,
   });
@@ -50,7 +68,7 @@ const getAllDeposits = async (req: Request, res: Response) => {
 const deleteDeposit = async (req: Request, res: Response) => {
   const id: number = Number(req.params.id);
 
-  const data = await DepositService.deleteDepositById(id);
+  const data = await depositService.deleteDepositById(id);
   res.status(200).json({
     status: "success",
     result: data,

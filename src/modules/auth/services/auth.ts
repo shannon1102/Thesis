@@ -83,4 +83,20 @@ const updateUserInfo = async (user: User, data: User): Promise<User> => {
   };
 };
 
-export default { register, login, createUserByDeviceId, updateUserInfo, updatePassword, getUserInfo };
+const getAllUsers = async (user: User) =>{
+  const foundUsers = await userDao.getAllUsers(user.id);
+// {
+//     limit: Number(limit) || configs.MAX_RECORDS_PER_REQ,
+//     offset: Number(offset) || 0,
+//   });
+  return foundUsers;
+
+}
+const deleteUser = async (userId: number) =>{
+  const deleteUser = await userDao.deleteUser(userId);
+
+  return deleteUser;
+
+}
+
+export default {getAllUsers,deleteUser, register, login, createUserByDeviceId, updateUserInfo, updatePassword, getUserInfo };

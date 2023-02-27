@@ -68,6 +68,15 @@ const getUserInfo = async (req: Request, res: Response) => {
   });
 };
 
+const getAllUsers = async (req: Request, res: Response) => {
+  // const userId = +req.params.userId;
+
+  let user = await authService.getAllUsers(req.user);
+  return res.status(200).json({
+    status: "success",
+    result: user})
+};
+
 const updatePassword = async (req: Request, res: Response) => {
   const { oldPassword, newPassword } = req.body;
   if (!oldPassword) {
@@ -120,4 +129,13 @@ const updateInfo = async (req: Request, res: Response) => {
   });
 };
 
-export default { register, login, me, createUserByDevice, updatePassword, updateInfo , getUserInfo};
+const deleteUser = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  const newUser = await authService.deleteUser(+userId);
+  return res.status(200).json({
+    status: "success",
+    result: newUser,
+  });
+};
+export default { register,getAllUsers, deleteUser, login, me, createUserByDevice, updatePassword, updateInfo , getUserInfo};

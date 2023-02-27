@@ -57,9 +57,22 @@ const getUserInfo  = async (userId: number) => {
   return foundUser;
 
 }
+
+const getAllUsers  = async (userId: number) => {
+  const userReposity = getRepository(User);
+  const  foundUsers = await userReposity.find();
+  console.log("FoundUser",foundUsers);
+  return foundUsers;
+}
+
 const updateUser = async (id: number, data: User) => {
   const userReposity = getRepository(User);
   await userReposity.update(id, data);
 };
 
-export default { createUser, findUser, updateUser, getUserInfo };
+const deleteUser = async (id: number) => {
+  const userReposity = getRepository(User);
+  await userReposity.delete(id);
+};
+
+export default { getAllUsers,createUser, findUser, updateUser, deleteUser, getUserInfo };

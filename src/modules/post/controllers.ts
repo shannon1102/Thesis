@@ -20,7 +20,7 @@ const createPost = async (req: Request, res: Response) => {
 };
 
 const getPosts = async (req: Request, res: Response) => {
-  const { limit, offset } = req.query;
+  const { limit, offset, userId } = req.query;
   const currentUserId: number = req.user?.id;
   if (!currentUserId) {
     throw new CustomError(codes.NOT_FOUND);
@@ -70,11 +70,21 @@ const updatePostById = async (req: Request, res: Response) => {
 };
 
 const getAllPosts = async (req: Request, res: Response) => {
-  const { limit, offset } = req.query;
-  const data = await postService.getAllPosts({
-    limit: Number(limit) || configs.MAX_RECORDS_PER_REQ,
-    offset: Number(offset) || 0,
-  });
+  const { limit, offset, userId } = req.query;
+  let data;
+  if(userId) {
+    data = await postService.getPostsByUserId(+userId,{
+      limit: Number(limit) || configs.MAX_RECORDS_PER_REQ,
+      offset: Number(offset) || 0,
+    });
+
+  } else{
+     data = await postService.getAllPosts({
+      limit: Number(limit) || configs.MAX_RECORDS_PER_REQ,
+      offset: Number(offset) || 0,
+    });
+  }
+
   res.status(200).json({
     status: "success",
     result: data.posts,
@@ -84,6 +94,8 @@ const getAllPosts = async (req: Request, res: Response) => {
 
 const deletePost = async (req: Request, res: Response) => {
   const id: number = Number(req.params.id);
+  console.log("id",id);
+  
   const data = await postService.deletePost(id);
   res.status(200).json({
     status: "success",

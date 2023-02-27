@@ -61,5 +61,5 @@ docker-compose run backend yarn migrate:run
 - ### Finally (next time you start app, you only need to run this command):
 
 ```bash
-docker-compose up
+docker-compose updocker
 ```

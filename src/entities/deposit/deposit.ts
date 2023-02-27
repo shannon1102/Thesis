@@ -21,9 +21,9 @@ export class Deposit {
   paymentMethod: string;
   @Column()
   status: string;
-
+  
   @Column()
-  comment: string
+  productId: string
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt?: Date;
 
